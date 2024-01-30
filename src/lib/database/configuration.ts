@@ -8,7 +8,7 @@ const connect = () => {
   return mongoose
     .connect(dbUri, {
       useNewUrlParser: true,
-      useUnifiedTopology: true,
+      // useUnifiedTopology: true,
     } as ConnectOptions)
     .then(() => {
       log.info("Database connected successfully");
