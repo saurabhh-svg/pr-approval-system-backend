@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
-// import rateLimit from "express-rate-limit";
-// import router from "../routers";
+import rateLimit from "express-rate-limit";
+import router from "../routers";
 import connect from "../lib/database/configuration";
 
 async function createServer() {
@@ -21,13 +21,13 @@ async function createServer() {
 
   await connect();
 
-  //   const limiter = rateLimit({
-  //     windowMs: 15 * 60 * 1000,
-  //     max: 100,
-  //     message: "Too many requests from this IP, please try again later.",
-  //   });
+  const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 100,
+    message: "Too many requests from this IP, please try again later.",
+  });
 
-  //   app.use("/api/", limiter);
+  app.use("/api/", limiter);
 
   /* health API to check if server is running*/
 
@@ -40,7 +40,7 @@ async function createServer() {
     });
   });
 
-  //   app.use("/api", router);
+  app.use("/api", router);
 
   return app;
 }
